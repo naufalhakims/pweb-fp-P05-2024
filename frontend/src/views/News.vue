@@ -1,21 +1,25 @@
 <template>
-  <div>
+  <div class="min-h-screen bg-gray-100">
     <Navbar />
-    <section class="bg-gray-100 py-10">
+    <section class="pt-24 pb-16 px-4">
       <div class="container mx-auto">
-        <h1 class="text-3xl font-bold text-center mb-8 text-pretty text-blue-700">Latest News</h1>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <h1 class="text-4xl font-bold text-center mb-12 text-blue-700">Latest News</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div
             v-for="(news, index) in newsList"
             :key="index"
-            class="bg-white p-4 rounded-lg shadow-md"
+            class="bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
           >
-            <h3 class="text-xl font-bold mb-2 text-black">{{ news.title }}</h3>
-            <p class="text-gray-600">{{ news.description }}</p>
+            <div class="p-6">
+              <h3 class="text-2xl font-bold mb-4 text-blue-600">{{ news.title }}</h3>
+              <p class="text-gray-700 leading-relaxed">{{ news.description }}</p>
+            </div>
+            
           </div>
         </div>
       </div>
     </section>
+    <Footer />
   </div>
 </template>
 
@@ -37,3 +41,4 @@ export default defineComponent({
   },
 });
 </script>
+
