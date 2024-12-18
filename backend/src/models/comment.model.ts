@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
-export interface Comment extends Document {
+export interface Comment_ extends Document {
   message: string;
   user: mongoose.Types.ObjectId;
   crowdfund: mongoose.Types.ObjectId;
@@ -12,4 +12,4 @@ const CommentSchema: Schema = new Schema({
   crowdfund: { type: Schema.Types.ObjectId, ref: 'Crowdfund', required: true },
 });
 
-export default mongoose.model<Comment>('Comment', CommentSchema);
+export default mongoose.model<Comment_>('Comment', CommentSchema);

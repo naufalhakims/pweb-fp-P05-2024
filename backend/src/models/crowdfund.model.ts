@@ -1,12 +1,14 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema, Document, Types } from 'mongoose';
 import { CrowdfundStatus } from './enums';
 
-export interface Crowdfund extends Document {
+export interface Crowdfund_ extends Document {
   name: string;
   target: string;
   current_donation: number;
   status: CrowdfundStatus;
   created_at: Date;
+  favorite_crowdfund: Types.ObjectId[]; 
+  comments: Types.ObjectId[]; 
 }
 
 const CrowdfundSchema: Schema = new Schema({
@@ -25,4 +27,4 @@ const CrowdfundSchema: Schema = new Schema({
   }],
 });
 
-export default mongoose.model<Crowdfund>('Crowdfund', CrowdfundSchema);
+export default mongoose.model<Crowdfund_>('Crowdfund', CrowdfundSchema);

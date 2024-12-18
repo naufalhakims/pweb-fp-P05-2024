@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import { PaymentMethod } from './enums';
 
-export interface Donation extends Document {
+export interface Donation_ extends Document {
   payment_method: PaymentMethod;
   amount: number;
   crowdfund: mongoose.Types.ObjectId;
@@ -13,4 +13,4 @@ const DonationSchema: Schema = new Schema({
   crowdfund: { type: Schema.Types.ObjectId, ref: 'Crowdfund', required: true },
 });
 
-export default mongoose.model<Donation>('Donation', DonationSchema);
+export default mongoose.model<Donation_>('Donation', DonationSchema);
