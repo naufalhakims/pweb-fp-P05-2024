@@ -2,7 +2,7 @@
 import express, { Express, Request, Response } from "express";
 import connDB from "@/db-conn";
 import cors from "cors";
-import authRoutes from "@/router/auth.router";
+import userRoutes from "@/router/user.router";
 import formatResponse from "@/utils/formatResponse";
 import feedbackRoutes from './router/feedback.router';
 
@@ -22,7 +22,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 // routers
-app.use("/auth", authRoutes);
+app.use("/user", userRoutes);
 app.use('/feedback', feedbackRoutes);
 
 app.listen(port, () => {

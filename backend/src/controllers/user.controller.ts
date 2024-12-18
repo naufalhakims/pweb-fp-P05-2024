@@ -1,11 +1,13 @@
-import AuthService from "@/services/auth.service";
+import UserService from "@/services/user.service";
 import { Request, Response } from "express";
 import formatResponse from "@/utils/formatResponse";
 
-class AuthController {
+class UserController {
   async register(req: Request, res: Response) {
     try {
-      const auth = await AuthService.register(req.body);
+      const userData = { ...req.body, name: req.body.username };
+      delete userData.username;
+      const auth = await UserService.register(userData);
 
       if (!auth) {
         throw new Error("User registration failed...");
@@ -38,11 +40,11 @@ class AuthController {
         throw new Error("Username and password are required...");
       }
 
-      const { auth, token } = await AuthService.login({ username, password });
-      const user = { username: auth.name, email: auth.email };
+      const { user, token } = await UserService.login({ username, password });
+      const user_ = { username: user.name, email: user.email };
 
       res.status(200).json(formatResponse(
-        "success", "User logged in successfully", { user, token }
+        "success", "User logged in successfully", { user_, token }
       ));
     }
     catch (error) {
@@ -59,4 +61,4 @@ class AuthController {
   }
 }
 
-export default new AuthController();
+export default new UserController();
