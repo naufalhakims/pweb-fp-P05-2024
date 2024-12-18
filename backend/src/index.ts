@@ -4,6 +4,7 @@ import connDB from "@/db-conn";
 import cors from "cors";
 import authRoutes from "@/router/auth.router";
 import formatResponse from "@/utils/formatResponse";
+import feedbackRoutes from './router/feedback.router';
 
 const app: Express = express();
 const port = process.env.PORT || 3000;
@@ -22,6 +23,7 @@ app.get("/", (req: Request, res: Response) => {
 
 // routers
 app.use("/auth", authRoutes);
+app.use('/feedback', feedbackRoutes);
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
