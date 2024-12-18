@@ -39,7 +39,7 @@ class AuthController {
       }
 
       const { auth, token } = await AuthService.login({ username, password });
-      const user = { username: auth.username, email: auth.email };
+      const user = { username: auth.name, email: auth.email };
 
       res.status(200).json(formatResponse(
         "success", "User logged in successfully", { user, token }

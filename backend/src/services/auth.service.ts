@@ -29,7 +29,7 @@ export class AuthService {
     }
 
     const token = jwt.sign(
-      { username: auth.username, id: auth._id },
+      { username: auth.name, id: auth._id },
       process.env.JWT_SECRET,
     );
 
