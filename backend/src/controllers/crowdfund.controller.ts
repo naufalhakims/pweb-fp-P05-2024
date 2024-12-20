@@ -139,6 +139,33 @@ class CrowdfundController {
   };
 
   /**
+   * Admin: Get all comments on a crowdfund.
+   * GET /admin/:crowdfund_id/comment
+   */
+  public getCommentsOnCrowdfund: RequestHandler = async (req: CustomRequest, res, next) => {
+    const { crowdfund_id } = req.params;
+    const admin_id = req.user?.id;
+
+    if (!admin_id) {
+      res.status(401).json(formatResponse('failed', 'Unauthorized'));
+      return;
+    }
+
+    try {
+      const comments = await CrowdfundService.getComments(crowdfund_id);
+      if (!comments) {
+        res.status(404).json(formatResponse('failed', 'No comments found for this crowdfund'));
+        return;
+      }
+      res
+        .status(200)
+        .json(formatResponse('success', 'Comments fetched successfully', comments));
+    } catch (error: any) {
+      res.status(500).json(formatResponse('error', error.message || 'Internal Server Error'));
+    }
+  };
+
+  /**
    * Admin: Delete a comment from a crowdfund.
    * DELETE /admin/:crowdfund_id/comment/:comment_id
    */

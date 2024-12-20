@@ -40,7 +40,7 @@
 import { defineComponent, ref, onMounted } from 'vue';
 import Navbar from '@/components/Navbar.vue';
 import Footer from '@/components/Footer.vue';
-import { getOpenCrowdfunds } from '../services/crowdfundService';
+import { getAdminCrowdfunds } from '../services/crowdfundService';
 
 export default defineComponent({
   components: { Navbar, Footer },
@@ -51,7 +51,7 @@ export default defineComponent({
 
     onMounted(async () => {
       try {
-        const response = await getOpenCrowdfunds();
+        const response = await getAdminCrowdfunds();
         console.log('Crowdfunds Response:', response.data); 
         crowdfunds.value = response.data; 
       } catch (err) {

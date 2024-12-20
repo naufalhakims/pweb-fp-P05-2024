@@ -68,7 +68,7 @@
   import { defineComponent, ref } from 'vue';
   import Navbar from '@/components/Navbar.vue';
   import Footer from '@/components/Footer.vue';
-//   import { createCrowdfund } from '@/services/crowdfundService';
+  import { createCrowdfund } from '@/services/crowdfundService';
   import { useRouter } from 'vue-router';
   
   export default defineComponent({
@@ -89,15 +89,13 @@
             target: target.value !== null ? target.value : 0,
             status: status.value,
           };
-  
-          // Validate input fields
+
           if (!payload.name || payload.target <= 0) {
             message.value = 'Name and a valid Target amount are required.';
             messageType.value = 'error';
             return;
           }
   
-          // Call the service to create a new crowdfund
           const response = await createCrowdfund(payload);
           
           if (response.status === 201 || response.status === 200) {
@@ -109,7 +107,7 @@
             // OR if you want to go to the detail page:
             // router.push({ name: 'AdminDetail', params: { crowdfundid: response.data.data._id } });
   
-            // Reset form fields
+            // reset
             name.value = '';
             target.value = null;
             status.value = 'OPEN';

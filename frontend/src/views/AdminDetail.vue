@@ -82,7 +82,7 @@
   import { defineComponent, ref, onMounted } from 'vue';
   import Navbar from '@/components/Navbar.vue';
   import Footer from '@/components/Footer.vue';
-  import { getCrowdfundById, deleteCrowdfund, getCommentsByCrowdfundId, deleteComment } from '@/services/crowdfundService';
+  import { getAdminCrowdfundDetail, deleteCrowdfund, getCommentsOnCrowdfund, deleteComment } from '@/services/crowdfundService';
   import { useRoute, useRouter } from 'vue-router';
   
   interface Crowdfund {
@@ -115,7 +115,7 @@
       const fetchCrowdfundDetails = async () => {
         try {
           const id = route.params.crowdfundid as string;
-          const response = await getCrowdfundById(id);
+          const response = await getAdminCrowdfundDetail(id);
           crowdfund.value = response.data.data; // Adjust based on backend response structure
         } catch (err) {
           error.value = 'Failed to fetch crowdfund details. Please try again later.';
@@ -126,7 +126,7 @@
       const fetchComments = async () => {
         try {
           const id = route.params.crowdfundid as string;
-          const response = await getCommentsByCrowdfundId(id);
+          const response = await getCommentsOnCrowdfund(id);
           comments.value = response.data.comments; // Adjust based on backend response structure
         } catch (err) {
           error.value = 'Failed to fetch comments. Please try again later.';
@@ -138,7 +138,8 @@
         if (!confirm('Are you sure you want to delete this comment?')) return;
   
         try {
-          await deleteComment(commentId);
+          const id = route.params.crowdfundid as string;
+          await deleteComment(id, commentId);
           comments.value = comments.value.filter(comment => comment._id !== commentId);
           alert('Comment deleted successfully.');
         } catch (err) {
