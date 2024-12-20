@@ -43,7 +43,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import Navbar from '@/components/Navbar.vue';
-import axios from 'axios'; // ...existing code...
+import axios from 'axios';
 
 export default defineComponent({
   components: { Navbar },
@@ -62,6 +62,7 @@ export default defineComponent({
           const { token, user_ } = response.data.data;
           localStorage.setItem('token', token);
           localStorage.setItem('role', user_.role);
+          localStorage.setItem('username', user_.username); // Save username
           alert('Login successful!');
 
           if (user_.role === 'ADMIN') {
