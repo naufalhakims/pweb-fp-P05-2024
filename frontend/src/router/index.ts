@@ -14,8 +14,8 @@ const routes = [
   { path: '/login', component: Login },
   { path: '/admin', component: Admin },
   { path: '/admin/create', component: AdminCreate },
-  { path: '/admin/:crowdfund_id', component: Admin },
-  { path: '/admin/:crowdfund_id/edit', component: Admin },
+  { path: '/admin/:crowdfund_id', component: AdminDetail },
+  { path: '/admin/:crowdfund_id/edit', component: AdminEdit },
   { path: '/crowdfund', component: Crowdfund }
 ];
 

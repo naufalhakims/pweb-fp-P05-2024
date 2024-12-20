@@ -152,15 +152,18 @@ class CrowdfundController {
     }
 
     try {
-      const comments = await CrowdfundService.getComments(crowdfund_id);
-      if (!comments) {
-        res.status(404).json(formatResponse('failed', 'No comments found for this crowdfund'));
+      const comments = await CrowdfundService.getCommentsByCrowdfundId(crowdfund_id);
+      
+      if (!comments || comments.length === 0) {
+        res.status(200).json(formatResponse('success', 'No comments found for this crowdfund'));
         return;
       }
+
       res
         .status(200)
         .json(formatResponse('success', 'Comments fetched successfully', comments));
     } catch (error: any) {
+      console.error('Error fetching comments:', error); // Added logging for debugging
       res.status(500).json(formatResponse('error', error.message || 'Internal Server Error'));
     }
   };

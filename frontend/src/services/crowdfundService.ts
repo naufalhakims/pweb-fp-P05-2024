@@ -32,7 +32,7 @@ export const createCrowdfund = (payload: { name: string; target: number }) => {
 
 export const editCrowdfund = (id: string, payload: { name: string; target: string; status: 'open' | 'close' }) => {
   const token = localStorage.getItem('token'); 
-  return axios.put(`${BACKEND_URI}/admin/crowdfunds/${id}`, payload, {
+  return axios.put(`${BACKEND_URI}/admin/edit/${id}`, payload, {
     headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',

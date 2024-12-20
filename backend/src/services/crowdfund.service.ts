@@ -165,7 +165,7 @@ class CrowdfundService {
   /**
    * Get all comments for a crowdfund.
    */
-  async getComments(crowdfund_id: string) {
+  async getCommentsByCrowdfundId(crowdfund_id: string) {
     try {
       const comments = await Comment.find({ crowdfund: crowdfund_id })
         .populate('user', 'name')

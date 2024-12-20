@@ -56,7 +56,7 @@
       </form>
       
       <!-- Success/Error Message -->
-      <div v-if="message" :class="messageType === 'success' ? 'text-green-600' : 'text-red-600'" class="mt-4 text-center">
+      <div v-if="message" :class="messageType === 'success' ? 'text-green-600' : 'text-red-600'" class="mt-4 text-center pb-4">
         {{ message }}
       </div>
     </main>
@@ -77,7 +77,8 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const router = useRouter();
-    const crowdfundId = route.params.crowdfundid as string;
+    const crowdfundId = route.params.crowdfund_id as string;
+    console.log('Crowdfund ID:', crowdfundId);
 
     const name = ref('');
     const target = ref<number | null>(null);
@@ -106,6 +107,7 @@ export default defineComponent({
           target: target.value !== null ? target.value.toString() : '0',
           status: status.value,
         };
+        console.log(payload);
 
         // Validate input fields
         if (!payload.name || parseInt(payload.target) <= 0) {
@@ -113,16 +115,13 @@ export default defineComponent({
           messageType.value = 'error';
           return;
         }
-
+        
         // Call the service to edit the crowdfund
         const response = await editCrowdfund(crowdfundId, payload);
         
         if (response.status === 200) {
           message.value = 'Crowdfund edited successfully!';
           messageType.value = 'success';
-          
-          // Redirect to the Admin Detail page
-          router.push({ name: 'AdminDetail', params: { crowdfundid: crowdfundId } });
         } else {
           throw new Error('Unexpected response status');
         }

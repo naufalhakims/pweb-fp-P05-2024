@@ -48,8 +48,7 @@
             </button>
           </div>
   
-          <!-- Comments Section -->
-          <div class="mb-6">
+          <!-- <div class="mb-6">
             <h3 class="text-2xl font-semibold mb-4 text-blue-700">User Comments</h3>
             <div v-if="comments.length > 0" class="space-y-4">
               <div
@@ -71,7 +70,7 @@
               </div>
             </div>
             <div v-else class="text-gray-600">No comments available.</div>
-          </div>
+          </div> -->
         </div>
       </main>
       <Footer />
@@ -91,7 +90,7 @@
     description: string;
     target: number;
     status: string;
-    donations: number; // Assuming there's a donations field to track progress
+    current_donation: number;
   }
   
   interface Comment {
@@ -114,9 +113,9 @@
   
       const fetchCrowdfundDetails = async () => {
         try {
-          const id = route.params.crowdfundid as string;
+          const id = route.params.crowdfund_id as string;
           const response = await getAdminCrowdfundDetail(id);
-          crowdfund.value = response.data.data; // Adjust based on backend response structure
+          crowdfund.value = response.data.data;
         } catch (err) {
           error.value = 'Failed to fetch crowdfund details. Please try again later.';
           console.error('Error fetching crowdfund details:', err);
@@ -127,7 +126,7 @@
         try {
           const id = route.params.crowdfundid as string;
           const response = await getCommentsOnCrowdfund(id);
-          comments.value = response.data.comments; // Adjust based on backend response structure
+          comments.value = response.data.data;
         } catch (err) {
           error.value = 'Failed to fetch comments. Please try again later.';
           console.error('Error fetching comments:', err);
@@ -167,12 +166,12 @@
   
       const calculateDonationProgress = () => {
         if (!crowdfund.value || crowdfund.value.target === 0) return 0;
-        const progress = (crowdfund.value.donations / crowdfund.value.target) * 100;
+        const progress = (crowdfund.value.current_donation / crowdfund.value.target) * 100;
         return progress > 100 ? 100 : progress.toFixed(2);
       };
   
       onMounted(async () => {
-        await Promise.all([fetchCrowdfundDetails(), fetchComments()]);
+        await Promise.all([fetchCrowdfundDetails()]);
         loading.value = false;
       });
   

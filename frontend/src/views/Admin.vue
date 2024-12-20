@@ -1,8 +1,8 @@
 <template>
   <div class="min-h-screen bg-stone-100">
     <Navbar />
-    <main class="container mx-auto pt-20 px-4">
-      <h2 class="text-3xl font-bold mb-6 text-center text-blue-700">Admin Dashboard</h2>
+    <main class="container mx-auto pt-20 px-4 pb-20">
+      <h2 class="text-3xl font-bold mb-6 text-center text-blue-700 pt-6 pb-12">Admin Dashboard</h2>
       
       <!-- Error Message -->
       <div v-if="error" class="mb-4 p-4 bg-red-200 text-red-800 rounded">
@@ -22,8 +22,9 @@
             :key="crowdfund._id || index"
             class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition duration-300"
           >
-            <h3 class="text-xl font-semibold mb-3 text-blue-600">{{ crowdfund.title }}</h3>
-            <p class="text-gray-600">{{ crowdfund.description }}</p>
+            <h3 class="text-2xl font-bold mb-3 text-blue-600">{{ crowdfund.name }}</h3>
+            <p class="text-gray-400 text-xs">{{ crowdfund._id }}</p>
+            <h4 class="text-gray-600 text-xl font-semibold mt-2">Target: {{ crowdfund.target }}</h4>
             <p class="text-gray-600 mt-2">Status: {{ crowdfund.status }}</p>
           </div>
         </div>
@@ -52,8 +53,8 @@ export default defineComponent({
     onMounted(async () => {
       try {
         const response = await getAdminCrowdfunds();
-        console.log('Crowdfunds Response:', response.data); 
-        crowdfunds.value = response.data; 
+        console.log('Crowdfunds Response:', response.data.data); 
+        crowdfunds.value = response.data.data; 
       } catch (err) {
         error.value = 'Failed to fetch crowdfunds. Please try again later.';
         console.error('Error fetching crowdfunds:', err);
