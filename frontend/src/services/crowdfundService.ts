@@ -30,7 +30,7 @@ export const createCrowdfund = (payload: { name: string; target: number }) => {
   });
 };
 
-export const editCrowdfund = (id: string, payload: { name: string; target: string; status: 'open' | 'close' }) => {
+export const editCrowdfund = (id: string, payload: { name: string; target: string; status: 'OPEN' | 'CLOSE' }) => {
   const token = localStorage.getItem('token'); 
   return axios.put(`${BACKEND_URI}/admin/edit/${id}`, payload, {
     headers: {
@@ -42,7 +42,7 @@ export const editCrowdfund = (id: string, payload: { name: string; target: strin
 
 export const deleteCrowdfund = (id: string) => {
   const token = localStorage.getItem('token'); 
-  return axios.delete(`${BACKEND_URI}/admin/crowdfunds/${id}`, {
+  return axios.delete(`${BACKEND_URI}/admin/delete/${id}`, {
     headers: {
       'Authorization': `Bearer ${token}`,
     },

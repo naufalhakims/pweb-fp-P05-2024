@@ -9,14 +9,16 @@ import AdminEdit from '@/views/AdminEdit.vue';
 import Crowdfund from '@/views/Crowdfund.vue';
 
 const routes = [
-  { path: '/', component: Home },
-  { path: '/news', component: News },
-  { path: '/login', component: Login },
-  { path: '/admin', component: Admin },
-  { path: '/admin/create', component: AdminCreate },
-  { path: '/admin/:crowdfund_id', component: AdminDetail },
-  { path: '/admin/:crowdfund_id/edit', component: AdminEdit },
-  { path: '/crowdfund', component: Crowdfund }
+  { path: '/', name: 'Home', component: Home },
+  { path: '/news', name: 'News', component: News },
+  { path: '/login', name: 'Login', component: Login },
+  { path: '/admin', name: 'Admin', component: Admin },
+  { path: '/admin/create', name: 'AdminCreate', component: AdminCreate },
+  
+  { path: '/admin/:_id', name: 'AdminDetail', component: AdminDetail },
+  { path: '/admin/:_id/edit', name: 'AdminEdit', component: AdminEdit },
+  
+  { path: '/crowdfund', name: 'Crowdfund', component: Crowdfund },
 ];
 
 const router = createRouter({

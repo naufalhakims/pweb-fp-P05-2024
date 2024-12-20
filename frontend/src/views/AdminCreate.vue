@@ -42,7 +42,7 @@
               class="w-full border border-gray-300 p-2 rounded mt-1 text-black"
             >
               <option value="OPEN">Open</option>
-              <option value="CLOSED">Closed</option>
+              <option value="CLOSE">Close</option>
             </select>
           </div>
           
@@ -56,7 +56,7 @@
         </form>
         
         <!-- Success/Error Message -->
-        <div v-if="message" :class="messageType === 'success' ? 'text-green-600' : 'text-red-600'" class="mt-4 text-center">
+        <div v-if="message" :class="messageType === 'success' ? 'text-green-600' : 'text-red-600'" class="mt-4 text-center mb-5">
           {{ message }}
         </div>
       </main>
@@ -101,12 +101,6 @@
           if (response.status === 201 || response.status === 200) {
             message.value = 'Crowdfund created successfully!';
             messageType.value = 'success';
-            
-            // Optionally, redirect to the Admin Dashboard or Crowdfund Detail page
-            // router.push({ name: 'AdminDashboard' });
-            // OR if you want to go to the detail page:
-            // router.push({ name: 'AdminDetail', params: { crowdfundid: response.data.data._id } });
-  
             // reset
             name.value = '';
             target.value = null;

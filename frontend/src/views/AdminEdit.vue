@@ -5,7 +5,7 @@
     <main class="container mx-auto pt-20 px-4">
       <h2 class="text-3xl font-bold mb-6 text-center text-blue-700">Edit Crowdfund</h2>
       
-      <form @submit.prevent="editCrowdfund" class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
+      <form @submit.prevent="editCrowdfund" class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md mb-5">
         <!-- Name Field -->
         <div class="mb-4">
           <label for="name" class="block text-gray-700">Name</label>
@@ -41,8 +41,8 @@
             v-model="status"
             class="w-full border border-gray-300 p-2 rounded mt-1 text-black"
           >
-            <option value="open">Open</option>
-            <option value="close">Close</option>
+            <option value="OPEN">Open</option>
+            <option value="CLOSE">Close</option>
           </select>
         </div>
         
@@ -77,12 +77,12 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const router = useRouter();
-    const crowdfundId = route.params.crowdfund_id as string;
+    const crowdfundId = route.params._id as string;
     console.log('Crowdfund ID:', crowdfundId);
 
     const name = ref('');
     const target = ref<number | null>(null);
-    const status = ref<'open' | 'close'>('open');
+    const status = ref<'OPEN' | 'CLOSE'>('OPEN');
     const message = ref('');
     const messageType = ref<'success' | 'error'>('success');
 

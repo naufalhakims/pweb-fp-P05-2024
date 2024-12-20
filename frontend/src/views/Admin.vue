@@ -23,9 +23,12 @@
             class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition duration-300"
           >
             <h3 class="text-2xl font-bold mb-3 text-blue-600">{{ crowdfund.name }}</h3>
-            <p class="text-gray-400 text-xs">{{ crowdfund._id }}</p>
-            <h4 class="text-gray-600 text-xl font-semibold mt-2">Target: {{ crowdfund.target }}</h4>
-            <p class="text-gray-600 mt-2">Status: {{ crowdfund.status }}</p>
+            <h4 class="text-gray-600 text-xl font-semibold">Target: {{ crowdfund.target }}</h4>
+            <p class="text-gray-600 mt-2 pb-6">Status: {{ crowdfund.status }}</p>
+            <router-link
+            :to="{ name: 'AdminDetail', params: { _id: crowdfund._id } }"
+            class="bg-blue-400 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300"
+          >Detail</router-link>
           </div>
         </div>
         <div v-else class="text-center text-gray-600 pb-6">
