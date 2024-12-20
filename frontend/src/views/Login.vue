@@ -9,11 +9,11 @@
         <h2 class="text-2xl font-bold text-center mb-6 text-blue-600">Login</h2>
         <form @submit.prevent="login">
           <div class="mb-4">
-            <label for="email" class="block text-gray-700 text-lg">Email</label>
+            <label for="username" class="block text-gray-700 text-lg">Username</label>
             <input
-              type="email"
-              v-model="email"
-              id="email"
+              type="username"
+              v-model="username"
+              id="username"
               class="w-full border border-gray-300 p-2 rounded text-black"
               required
             />
@@ -42,34 +42,42 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import Navbar from '@/components/Navbar.vue'; // Import Navbar component
+import Navbar from '@/components/Navbar.vue';
+import axios from 'axios'; // ...existing code...
 
 export default defineComponent({
   components: { Navbar },
 
   setup() {
-    const email = ref('');
+    const username = ref('');
     const password = ref('');
 
-    const login = () => {
-      if (email.value && password.value) {
-        localStorage.setItem('token', 'dummy-token');
-        alert('Login successful!');
+    const login = async () => {
+      if (username.value && password.value) {
+        try {
+          const response = await axios.post('http://localhost:3000/user/login', {
+            username: username.value,
+            password: password.value,
+          });
+          const { token, user_ } = response.data.data;
+          localStorage.setItem('token', token);
+          localStorage.setItem('role', user_.role);
+          alert('Login successful!');
 
-        // Cek apakah email mengandung "admin"
-        if (email.value.toLowerCase().includes('admin')) {
-          // Redirect ke halaman admin
-          window.location.href = '/admin';
-        } else {
-          // Redirect ke halaman user
-          window.location.href = '/crowdfund';
+          if (user_.role === 'ADMIN') {
+            window.location.href = '/admin';
+          } else {
+            window.location.href = '/crowdfund';
+          }
+        } catch (error) {
+          alert('Login failed. Please check your credentials.');
         }
       } else {
         alert('Please enter valid credentials!');
       }
     };
 
-    return { email, password, login };
+    return { username, password, login };
   },
 });
 </script>

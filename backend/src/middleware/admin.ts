@@ -1,17 +1,10 @@
 import formatResponse from "@/utils/formatResponse";
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+import { CustomRequest } from "./auth";
+import { JwtPayloadExtended } from "./auth";
 
-export interface JwtPayloadExtended extends jwt.JwtPayload {
-    id: string;
-    role: string; 
-}
-
-export interface CustomRequest extends Request {
-    user?: JwtPayloadExtended;
-}
-
-export const authMiddleware = async (req: CustomRequest, res: Response, next: NextFunction): Promise<void> => {
+export const adminMiddleware = async (req: CustomRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
         const token = req.headers.authorization?.split(" ")[1];
         if (!token) {
@@ -23,6 +16,9 @@ export const authMiddleware = async (req: CustomRequest, res: Response, next: Ne
             throw new Error("Invalid token...");
         }
         req.user = decoded;
+        if (decoded.role !== "ADMIN") {
+            throw new Error("Access denied. Only admins can access this route...");
+        }
         next();
     }
     catch (error) {

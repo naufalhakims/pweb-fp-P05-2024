@@ -41,7 +41,7 @@ class UserController {
       }
 
       const { user, token } = await UserService.login({ username, password });
-      const user_ = { username: user.name, email: user.email };
+      const user_ = { username: user.name, email: user.email, role: user.role };
 
       res.status(200).json(formatResponse(
         "success", "User logged in successfully", { user_, token }
