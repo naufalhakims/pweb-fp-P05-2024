@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://your-backend-api.com/api'; // Ganti dengan URL backend Anda
+const BASE_URL = 'http://localhost:3000/feedback'; // Ganti dengan URL backend Anda
 
 export const sendFeedback = async (feedback: {
   name: string;

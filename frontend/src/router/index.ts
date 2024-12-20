@@ -7,11 +7,13 @@ import AdminCreate from '@/views/AdminCreate.vue';
 import AdminDetail from '@/views/AdminDetail.vue';
 import AdminEdit from '@/views/AdminEdit.vue';
 import Crowdfund from '@/views/Crowdfund.vue';
+import Register from '@/views/Register.vue';
 
 const routes = [
   { path: '/', name: 'Home', component: Home },
   { path: '/news', name: 'News', component: News },
   { path: '/login', name: 'Login', component: Login },
+  {path: '/register', name: 'Register', component: Register},
   { path: '/admin', name: 'Admin', component: Admin },
   { path: '/admin/create', name: 'AdminCreate', component: AdminCreate },
   

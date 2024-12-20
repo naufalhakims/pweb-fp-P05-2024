@@ -13,6 +13,9 @@
           <router-link to="/news" class="hover:text-blue-200 transition duration-300 ease-in-out">News</router-link>
         </li>
         <li v-if="!loggedIn">
+          <router-link to="/register" class="hover:text-blue-200 transition duration-300 ease-in-out font-semibold">Register</router-link>
+        </li>
+        <li v-if="!loggedIn">
           <router-link to="/login" class="hover:text-blue-200 transition duration-300 ease-in-out font-semibold">Login</router-link>
         </li>
         <li v-else class="flex items-center space-x-2">

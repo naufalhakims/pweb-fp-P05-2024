@@ -1,7 +1,7 @@
 <!-- filepath: /frontend/src/views/AdminCreate.vue -->
 <template>
     <div class="min-h-screen bg-stone-100">
-      <Navbar />
+      <AdminNav />
       <main class="container mx-auto pt-20 px-4">
         <h2 class="text-3xl font-bold mb-6 text-center text-blue-700">Create New Crowdfund</h2>
         
@@ -66,14 +66,14 @@
   
   <script lang="ts">
   import { defineComponent, ref } from 'vue';
-  import Navbar from '@/components/Navbar.vue';
   import Footer from '@/components/Footer.vue';
   import { createCrowdfund } from '@/services/crowdfundService';
   import { useRouter } from 'vue-router';
+import AdminNav from '@/components/AdminNav.vue';
   
   export default defineComponent({
     name: 'AdminCreate',
-    components: { Navbar, Footer },
+    components: { AdminNav, Footer },
     setup() {
       const name = ref('');
       const target = ref<number | null>(null);

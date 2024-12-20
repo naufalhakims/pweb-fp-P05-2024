@@ -1,7 +1,7 @@
 <!-- filepath: /frontend/src/views/AdminDetail.vue -->
 <template>
   <div class="min-h-screen bg-stone-100">
-    <Navbar />
+    <AdminNav />
     <main class="container mx-auto pt-20 px-4">
       <!-- Loading Indicator -->
       <div v-if="loading" class="text-center text-gray-600">
@@ -79,7 +79,6 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue';
-import Navbar from '@/components/Navbar.vue';
 import Footer from '@/components/Footer.vue';
 import {
   getAdminCrowdfundDetail,
@@ -88,6 +87,7 @@ import {
   deleteComment,
 } from '@/services/crowdfundService';
 import { useRoute, useRouter } from 'vue-router';
+import AdminNav from '@/components/AdminNav.vue';
 
 interface Crowdfund {
   _id: string;
@@ -106,7 +106,7 @@ interface Comment {
 
 export default defineComponent({
   name: 'AdminDetail',
-  components: { Navbar, Footer },
+  components: { AdminNav, Footer },
   setup() {
     const route = useRoute();
     const router = useRouter();
@@ -161,7 +161,7 @@ export default defineComponent({
       try {
         await deleteCrowdfund(crowdfund.value!._id);
         alert('Crowdfund deleted successfully.');
-        router.push({ name: 'AdminDashboard' });
+        router.push('/admin');
       } catch (err) {
         console.error('Error deleting crowdfund:', err);
       }

@@ -6,15 +6,15 @@
     <div class="flex items-center mb-4">
       <div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
         <input
-          type="checkbox"
-          v-model="form.is_anonymous"
-          id="is_anonymous"
-          class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
-        />
-        <label
-          for="is_anonymous"
-          class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
-        ></label>
+      type="checkbox"
+      v-model="form.is_anonymous"
+      id="is_anonymous"
+      class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer transition-colors duration-200"
+    />
+    <label
+      for="is_anonymous"
+      class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer transition-colors duration-200"
+    ></label>
       </div>
       <label for="is_anonymous" class="text-lg font-semibold text-gray-700 ml-2">Submit secara Anonim</label>
     </div>
@@ -60,9 +60,11 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from 'vue';
+import axios from 'axios';
 
 export default defineComponent({
-  setup() {
+  emits: ['feedback-submitted'],
+  setup(_, { emit }) {
     const form = reactive({
       name: '',
       is_anonymous: false,
@@ -70,16 +72,19 @@ export default defineComponent({
       message: '',
     });
 
-    const submitFeedback = () => {
-      // Contoh: kirim data ke server
-      console.log('Feedback submitted:', form);
-
-      // Reset form setelah submit
-      form.name = '';
-      form.is_anonymous = false;
-      form.email = '';
-      form.message = '';
-      alert('Thank you for your feedback!');
+    const submitFeedback = async () => {
+      try {
+        await axios.post('http://localhost:3000/feedback', form);
+        emit('feedback-submitted');
+        form.name = '';
+        form.is_anonymous = false;
+        form.email = '';
+        form.message = '';
+        alert('Thank you for your feedback!');
+      } catch (error) {
+        console.error('Failed to submit feedback:', error);
+        alert('Failed to submit feedback. Please try again later.');
+      }
     };
 
     return { form, submitFeedback };
@@ -94,4 +99,8 @@ export default defineComponent({
 .toggle-checkbox:checked + .toggle-label {
   @apply bg-blue-600;
 }
+.toggle-checkbox:focus + .toggle-label {
+  @apply ring-2 ring-blue-600;
+}
 </style>
+

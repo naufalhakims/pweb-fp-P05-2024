@@ -1,7 +1,7 @@
 <!-- filepath: /frontend/src/views/AdminEdit.vue -->
 <template>
   <div class="min-h-screen bg-stone-100">
-    <Navbar />
+    <AdminNav />
     <main class="container mx-auto pt-20 px-4">
       <h2 class="text-3xl font-bold mb-6 text-center text-blue-700">Edit Crowdfund</h2>
       
@@ -66,14 +66,14 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue';
-import Navbar from '@/components/Navbar.vue';
 import Footer from '@/components/Footer.vue';
 import { editCrowdfund, getAdminCrowdfundDetail } from '@/services/crowdfundService';
 import { useRoute, useRouter } from 'vue-router';
+import AdminNav from '@/components/AdminNav.vue';
 
 export default defineComponent({
   name: 'AdminEdit',
-  components: { Navbar, Footer },
+  components: { AdminNav, Footer },
   setup() {
     const route = useRoute();
     const router = useRouter();

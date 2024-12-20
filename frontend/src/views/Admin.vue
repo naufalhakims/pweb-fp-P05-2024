@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen bg-stone-100">
-    <Navbar />
+    <AdminNav />
     <main class="container mx-auto pt-20 px-4 pb-20">
       <h2 class="text-3xl font-bold mb-6 text-center text-blue-700 pt-6 pb-12">Admin Dashboard</h2>
       
@@ -42,12 +42,12 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue';
-import Navbar from '@/components/Navbar.vue';
 import Footer from '@/components/Footer.vue';
 import { getAdminCrowdfunds } from '../services/crowdfundService';
+import AdminNav from '@/components/AdminNav.vue';
 
 export default defineComponent({
-  components: { Navbar, Footer },
+  components: { AdminNav, Footer },
   setup() {
     const crowdfunds = ref<any[]>([]);
     const error = ref<string | null>(null);
