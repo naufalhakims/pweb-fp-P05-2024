@@ -2,8 +2,12 @@ import formatResponse from "@/utils/formatResponse";
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
-interface CustomRequest extends Request {
-    user?: string | jwt.JwtPayload;
+interface JwtPayloadExtended extends jwt.JwtPayload {
+    id: string;
+}
+
+export interface CustomRequest extends Request {
+    user?: JwtPayloadExtended;
 }
 
 export const authMiddleware = async (req: CustomRequest, res: Response, next: NextFunction): Promise<void> => {
@@ -13,8 +17,8 @@ export const authMiddleware = async (req: CustomRequest, res: Response, next: Ne
             throw new Error("Access denied. No token provided...");
         }
 
-        const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
-        if (!decoded) {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as JwtPayloadExtended;
+        if (!decoded || !decoded.id) {
             throw new Error("Invalid token...");
         }
         req.user = decoded;
@@ -23,6 +27,7 @@ export const authMiddleware = async (req: CustomRequest, res: Response, next: Ne
     catch (error) {
         if (error instanceof Error) {
             res.status(401).json(formatResponse("failed", error.message, null));
+            return;
         }
         res.status(500).json(formatResponse("error", "An unknown error occurred.", null));
     }

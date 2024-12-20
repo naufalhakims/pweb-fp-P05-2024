@@ -4,7 +4,8 @@ import connDB from "@/db-conn";
 import cors from "cors";
 import userRoutes from "@/router/user.router";
 import formatResponse from "@/utils/formatResponse";
-import feedbackRoutes from './router/feedback.router';
+import feedbackRoutes from '@/router/feedback.router';
+import crowdfundRoutes from '@/router/crowdfund.router';
 
 const app: Express = express();
 const port = process.env.PORT || 3000;
@@ -22,7 +23,8 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 // routers
-app.use("/user", userRoutes);
+app.use('/', crowdfundRoutes);
+app.use('/user', userRoutes);
 app.use('/feedback', feedbackRoutes);
 
 app.listen(port, () => {
