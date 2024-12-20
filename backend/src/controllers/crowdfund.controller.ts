@@ -154,7 +154,7 @@ class CrowdfundController {
     try {
       const comments = await CrowdfundService.getCommentsByCrowdfundId(crowdfund_id);
       
-      if (!comments || comments.length === 0) {
+      if (!comments) {
         res.status(200).json(formatResponse('success', 'No comments found for this crowdfund'));
         return;
       }

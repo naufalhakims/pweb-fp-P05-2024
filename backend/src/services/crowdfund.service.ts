@@ -134,35 +134,6 @@ class CrowdfundService {
   }
 
   /**
-   * Create a donation for a crowdfund.
-   */
-  async createDonation(input: CreateDonationInput) {
-    try {
-      const crowdfund = await Crowdfund.findById(input.crowdfund_id);
-      if (!crowdfund) {
-        throw new Error('Crowdfund not found');
-      }
-
-      const donation = new Donation({
-        payment_method: input.payment_method,
-        amount: input.amount,
-        crowdfund: input.crowdfund_id,
-        // Optionally, include bank_name if payment_method is BANK_TRANSFER
-      });
-
-      const savedDonation = await donation.save();
-
-      // Update current_donation
-      crowdfund.current_donation += input.amount;
-      await crowdfund.save();
-
-      return savedDonation;
-    } catch (error) {
-      throw new Error('Error creating donation');
-    }
-  }
-
-  /**
    * Get all comments for a crowdfund.
    */
   async getCommentsByCrowdfundId(crowdfund_id: string) {
@@ -171,8 +142,8 @@ class CrowdfundService {
         .populate('user', 'name')
         .exec();
       return comments;
-    } catch (error) {
-      throw new Error('Error fetching comments');
+    } catch (error: any) {
+      throw new Error('Error fetching comments: ' + error.message);
     }
   }
 
