@@ -66,3 +66,12 @@ export const deleteComment = (crowdfundId: string, commentId: string) => {
     },
   });
 };
+
+export const getCrowdFundsUsers = () => {
+  const token = localStorage.getItem('token');
+  return axios.get(`${BACKEND_URI}/api/crowdfund`, {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+};

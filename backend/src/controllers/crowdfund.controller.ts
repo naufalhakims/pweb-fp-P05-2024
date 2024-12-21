@@ -190,6 +190,17 @@ class CrowdfundController {
       res.status(500).json(formatResponse('error', error.message || 'Internal Server Error'));
     }
   };
+  public getAllCrowdfunds: RequestHandler = async (req: CustomRequest, res, next) => {
+    try {
+      const crowdfunds = await CrowdfundService.getAllCrowdfunds();
+      res
+        .status(200)
+        .json(formatResponse('success', 'All crowdfunds fetched successfully', crowdfunds));
+    } catch (error: any) {
+      res.status(500).json(formatResponse('error', error.message || 'Internal Server Error'));
+    }
+  };
+
 }
 
 export default new CrowdfundController();

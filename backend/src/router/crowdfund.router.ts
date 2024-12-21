@@ -3,7 +3,9 @@ import { authMiddleware } from '@/middleware/auth';
 import { adminMiddleware } from '@/middleware/admin';
 import { Router } from 'express';
 
+
 const router: Router = Router();
+
 
 // Admin Routes
 router.get('/admin', adminMiddleware, CrowdfundController.getAllCrowdfundsAdmin);
@@ -14,4 +16,11 @@ router.put('/admin/edit/:crowdfund_id', adminMiddleware, CrowdfundController.edi
 router.delete('/admin/delete/:crowdfund_id', adminMiddleware, CrowdfundController.deleteCrowdfundAdmin);
 router.delete('/admin/delete/:crowdfund_id/comment/:comment_id', adminMiddleware, CrowdfundController.deleteCommentAdmin);
 
+
+// user Routes
+router.get('/api/crowdfund', authMiddleware, CrowdfundController.getAllCrowdfunds);
+
+
 export default router;
+
+
