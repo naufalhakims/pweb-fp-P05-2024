@@ -8,9 +8,9 @@ export const sendFeedback = async (feedback: {
   email: string;
   message: string;
 }) => {
-  return axios.post(`${BASE_URL}/feedback`, feedback);
+  return axios.post(`${BASE_URL}`, feedback);
 };
 
 export const getFeedbacks = async () => {
-  return axios.get(`${BASE_URL}/feedback`);
+  return axios.get(`${BASE_URL}`);
 };

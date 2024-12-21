@@ -60,7 +60,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from 'vue';
-import axios from 'axios';
+import { sendFeedback } from '@/services/feedbackService';
 
 export default defineComponent({
   emits: ['feedback-submitted'],
@@ -74,7 +74,7 @@ export default defineComponent({
 
     const submitFeedback = async () => {
       try {
-        await axios.post('http://localhost:3000/feedback', form);
+        await sendFeedback(form);
         emit('feedback-submitted');
         form.name = '';
         form.is_anonymous = false;
@@ -103,4 +103,3 @@ export default defineComponent({
   @apply ring-2 ring-blue-600;
 }
 </style>
-
