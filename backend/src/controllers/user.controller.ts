@@ -35,12 +35,12 @@ class UserController {
 
   async login(req: Request, res: Response) {
     try {
-      const { username, password } = req.body;
-      if (!username || !password) {
-        throw new Error("Username and password are required...");
+      const { email, password } = req.body;
+      if (!email || !password) {
+        throw new Error("Email and password are required...");
       }
 
-      const { user, token } = await UserService.login({ username, password });
+      const { user, token } = await UserService.login({ email, password });
       const user_ = { username: user.name, email: user.email, role: user.role };
 
       res.status(200).json(formatResponse(

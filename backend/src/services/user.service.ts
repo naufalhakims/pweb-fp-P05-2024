@@ -15,10 +15,10 @@ export class UserService {
   }
 
   async login(userData: {
-    username: string;
+    email: string;
     password: string;
   }): Promise<{ user: User_; token: string }> {
-    const user = await User.findOne({ name: userData.username });
+    const user = await User.findOne({ email: userData.email });
 
     if (!user) {
       throw new Error("User not found...");

@@ -9,11 +9,11 @@
         <h2 class="text-2xl font-bold text-center mb-6 text-blue-600">Login</h2>
         <form @submit.prevent="login">
           <div class="mb-4">
-            <label for="username" class="block text-gray-700 text-lg">Username</label>
+            <label for="email" class="block text-gray-700 text-lg">Email</label>
             <input
-              type="username"
-              v-model="username"
-              id="username"
+              type="email"
+              v-model="email"
+              id="email"
               class="w-full border border-gray-300 p-2 rounded text-black"
               required
             />
@@ -49,14 +49,14 @@ export default defineComponent({
   components: { Navbar },
 
   setup() {
-    const username = ref('');
+    const email = ref('');
     const password = ref('');
 
     const login = async () => {
-      if (username.value && password.value) {
+      if (email.value && password.value) {
         try {
           const response = await axios.post('http://localhost:3000/user/login', {
-            username: username.value,
+            email: email.value,
             password: password.value,
           });
           const { token, user_ } = response.data.data;
@@ -78,7 +78,7 @@ export default defineComponent({
       }
     };
 
-    return { username, password, login };
+    return { email, password, login };
   },
 });
 </script>
